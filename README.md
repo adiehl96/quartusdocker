@@ -1,2 +1,2 @@
 # quartusdocker
-Dockerfiles to run quartus on macos in the m1
+Dockerfiles to run quartus on macos on the m1
