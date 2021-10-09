@@ -1,4 +1,4 @@
-FROM debian:stretch
+FROM --platform=linux/amd64 debian:stretch
 
 ENV LC_ALL en_US.UTF-8
 ENV LANG en_US.UTF-8
@@ -52,6 +52,9 @@ ADD ./qenv.sh /
 RUN /quartus/setup.sh --mode unattended --accept_eula 1 --installdir /opt/quartus && \
     (cd /opt/quartus/nios2eds/bin && mv /eclipse ./eclipse_nios2 && tar xfz eclipse_nios2_plugins.tar.gz)
 RUN mv /qenv.sh /opt/quartus/quartus/adm
+RUN apt-get install -y libtcmalloc-minimal4
+ENV LD_PRELOAD=/usr/lib/libtcmalloc_minimal.so.4
+
 # ENTRYPOINT [ "yes" ]
 # CMD ["--64bit"]
 ENTRYPOINT ["/opt/quartus/quartus/bin/quartus"]
